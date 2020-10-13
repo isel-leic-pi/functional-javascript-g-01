@@ -1,15 +1,23 @@
 function inspect(obj) {
-    Object
+    for(key in obj) {
+        printPair(key, getValue(obj, key))
+    }
+    /* Object
     .keys(obj)
-    .forEach(key => printPair(key, getValue(obj, key)))
+    .forEach(key => printPair(key, getValue(obj, key))) */
 }
 
 function getValue(obj, key) {
     return (isFunction(obj[key]) && functionHasNoParams(obj[key])) ? obj[key]() : obj[key]
 }
 
-function functionHasNoParams(props) {
-    return props && props.length === 0
+// ???
+/* function getValue(prop) {
+    return (isFunction(prop) && functionHasNoParams(prop)) ? prop() : prop
+} */
+
+function functionHasNoParams(prop) {
+    return prop && prop.length === 0
 }
 
 function isFunction(prop) {
