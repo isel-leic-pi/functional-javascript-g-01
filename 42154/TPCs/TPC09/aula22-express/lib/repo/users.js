@@ -124,13 +124,13 @@ function addArtist(username, artist, cb) {
                         }
                         else{
                             console.log('success')
-                            cb(artist)
                         }    
    
                     })
                 }  
             })
-        }   
+        } 
+        cb(null, artist)  
     })    
 }
 

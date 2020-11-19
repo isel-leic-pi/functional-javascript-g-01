@@ -7,6 +7,10 @@ const vinyl = require('./../repo/vinyl')
 
 const router = Router()
 
+router.use(bodyParser.json())
+router.use(bodyParser.multipart({ extended: false }))
+
+
 module.exports = router
 
 router.get('/vinyl/users/:username', (req, resp, next) => {
@@ -62,9 +66,10 @@ router.put('/vinyl/users/:username', (req, resp, next) => {
 })
 
 
-router.post('/vinyl/users/:username/artists/:artist', (req, resp, next) => {
+router.post('/vinyl/users/:username/artists', (req, resp, next) => {
     const username = req.params.username 
-    const artist = req.params.artist
+    const artist = req.body.artist
+
     users.addArtist(username, (err, artist) => {
         if(err) return next(err)
         if(!username){
@@ -77,7 +82,7 @@ router.post('/vinyl/users/:username/artists/:artist', (req, resp, next) => {
 })
 
 
-router.get('/vinyl/users/:username/toptracks/', (req, resp, next) => {
+router.get('/vinyl/users/:username/toptracks', (req, resp, next) => {
     const username = req.params.username
     const limit = req.query.limit | 3
     vinyl.getTopTracks(username, limit, (err, tracks) => {

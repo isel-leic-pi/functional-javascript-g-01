@@ -19,16 +19,15 @@ test('test users module getUsers successfuly', done => {
 })
 
 
-
+/*
 test('test users module addUser successfully', done =>{
-    users.addUser('joao', (err, user) => {
+    users.addUser('alberto', (err, user) => {
         expect(err).toBeFalsy()
-        expect(user.username).toBe('joao')
+        expect(user.username).toBe('alberto')
         done()
     })
 })
 
-/*
 test('test users module addArtist successfully', done => {
     users.addArtist('gamboa', 'Amalia', (err, buffer) => {
         expect(err).toBeFalsy()

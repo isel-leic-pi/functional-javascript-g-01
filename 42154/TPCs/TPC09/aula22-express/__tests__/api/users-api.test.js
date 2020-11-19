@@ -38,7 +38,20 @@ test('Test users route to get laurinda', () => frisby
 // eslint-disable-next-line no-undef
 test('Test users route for unknown username', () => frisby
     .get('http://localhost:8000/vinyl/users/blabla')
-    .expect('status', 500 /*404*/)
+    .expect('status', 500/*404*/)
+)
+
+
+test('Test users route for add user', () => frisby
+    .put('http://localhost:8000/vinyl/users/maria2')
+    .expect('status', 200)
+)
+
+test('Test users route for post artist', () => frisby
+    .post('http://localhost:8000/vinyl/users/laurinda/artists')
+    .expect('status', 200)
+    .expect('json', 'artists', ['Franz Ferdinand','Faith no more', 'Amalia'])
+
 )
 
 const EXPECTED_USERS = [

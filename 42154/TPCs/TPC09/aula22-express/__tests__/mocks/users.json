@@ -1,10 +1,1 @@
-[
-    {
-        "username": "laurinda",
-        "artists": ["Franz Ferdinand", "Faith no more"]
-    },
-    {
-        "username": "baptista",
-        "artists": ["police", "james"]
-    }
-]
+[{"username":"laurinda","artists":["Franz Ferdinand","Faith no more"]},{"username":"baptista","artists":["police","james"]},{"username":"maria","artists":[]},{"username":"maria2","artists":[]}]
