@@ -63,7 +63,7 @@ router.get('/vinyl/users', (req, resp, next) => {
     router.post('/vinyl/users/:username/artists/:artist', (req, resp, next) => {
         const username = req.params.username 
         const artist = req.params.artist
-        vinyl.addArtist(username, (err, artist) => {
+        users.addArtist(username, (err, artist) => {
             if(err) return next(err)
             if(!username){
                 const err = new Error('Invalid user, impossible to add artist')

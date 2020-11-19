@@ -121,16 +121,21 @@ function addArtist(username, artist, cb) {
                         if(err){
                             console.log(err)
                             cb(err)
-                        }else{
+                        }
+                        else{
                             console.log('success')
                             cb(artist)
-                            }
-
-                        })
+                        }    
+   
                     })
-                }
+                }  
             })
-        }
+        }   
+    })    
+}
+
+    
+
 
 
     

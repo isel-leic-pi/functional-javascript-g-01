@@ -1,10 +1,11 @@
 'use strict'
 
+const users = require('./lib/repo/users')
 const express = require('express')
 const routes = require('./lib/routes/vinyl-routes')
 
 if(process.argv.length > 2 )
-    require('./lib/repo/users').init(process.argv[2])
+    users.init(process.argv[2])
 
 const server = express()
 

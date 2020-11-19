@@ -28,7 +28,7 @@ test('test users module addUser successfully', done =>{
     })
 })
 
-
+/*
 test('test users module addArtist successfully', done => {
     users.addArtist('gamboa', 'Amalia', (err, buffer) => {
         expect(err).toBeFalsy()
@@ -37,7 +37,7 @@ test('test users module addArtist successfully', done => {
     })
 })
 
-/*
+
 const artists = ["muse"]
 
 test('test users module addArtist successfully', done => {
@@ -50,7 +50,7 @@ test('test users module addArtist successfully', done => {
         done()
     })
 })
-
+*/
 
 /**
  * @param {*} url 
