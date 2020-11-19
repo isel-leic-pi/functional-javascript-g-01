@@ -135,14 +135,6 @@ function addArtist(username, artist, cb) {
 }
 
     
-
-
-
-    
-
- 
- 
-
 function removeUser(username, cb){
     getUser(username, (err, user) => {
         fs.readFile(pathUsers, (err, buffer) => {
