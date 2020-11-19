@@ -1,7 +1,11 @@
 'use strict'
 
 const fs = require('fs')
-const PATH_USERS = './data/users.json'
+let pathUsers = './data/users.json'
+
+function init(path) {
+    if(path) pathUsers = path
+}
 
 /**
  * @typedef User
@@ -14,7 +18,7 @@ const PATH_USERS = './data/users.json'
  * @param {function(Error, User)} cb 
  */
 function getUser(username, cb) {
-    fs.readFile(PATH_USERS, (err, buffer) => {
+    fs.readFile(pathUsers, (err, buffer) => {
         if(err) return cb(err)
         const arr = JSON.parse(buffer)
         const users = arr.filter(user => user.username == username)
@@ -24,7 +28,7 @@ function getUser(username, cb) {
 }
 
 function getUsers(cb){
-    fs.readFile(PATH_USERS, (err, buffer) => {
+    fs.readFile(pathUsers, (err, buffer) => {
         if(err) return cb(err)
         const users = JSON.parse(buffer)
         if(users.length == 0) return cb(new Error('There are no users'))
@@ -51,7 +55,7 @@ function addUser(username, cb) {
         }
 
         let arr = []
-        fs.readFile(PATH_USERS,(err, buffer)=>{
+        fs.readFile(pathUsers,(err, buffer)=>{
                 if(err){
                     console.log(err)
                     return cb(err)
@@ -63,7 +67,7 @@ function addUser(username, cb) {
                 }
                 arr.push(newUser)
                 const newData = JSON.stringify(arr)
-                fs.writeFile(PATH_USERS, newData,(err) => {
+                fs.writeFile(pathUsers, newData,(err) => {
                     if(err){
                         cb(err)
                         console.log('Error writing')
@@ -77,10 +81,7 @@ function addUser(username, cb) {
     })
 
     
-
-    
 }
-
 
 /**
  * Adds a new artist name to the array of artists of the User with 
@@ -91,43 +92,55 @@ function addUser(username, cb) {
  * @param {String} artist 
  * @param {function(Error, User)} cb 
  */
-/*
 function addArtist(username, artist, cb) {
     getUser(username, (err, user) => {
-        fs.readFile(PATH_USERS, (err, buffer)=>{
-            if(err) cb(err)
-            const arr = JSON.parse(buffer)
-            const users = arr.filter(users => users.username == username)
-            if(Object.hasOwnProperty(users, 'artists')){
-                arr.forEach(element => {
-                if(element.username === username){
-                    element.artists = []
-                    element.artists.push(artist)
+        if(err != null) cb(err)
+        else{
+            fs.readFile(pathUsers, (err, buffer) => {
+                if(err){
+                    console.log(err)
+                    cb(err)
                 }
-            });
-            }else{
-                arr.forEach(element => {
-                if (element.username === username){
-                    element.artists.push(artist)
-                    }
-                })
-            }
+                let arr = JSON.parse(buffer)
+                const user = arr.filter(user => user.username === username)
+                if(!Object.hasOwnProperty(user, 'artists')){
+                    arr.forEach(element => {
+                        if(element.username === username){
+                            element.artists = []
+                            element.artists.push(artist)
+                        }
+                    });
+                }else{
+                    arr.forEach(element => {
+                    if(element.username === username){
+                        element.artists.push(artist)
+                        }
+                    })
+                    let data = JSON.stringify(arr)
+                    fs.writeFile(pathUsers, data, (err) => {
+                        if(err){
+                            console.log(err)
+                            cb(err)
+                        }else{
+                            console.log('success')
+                            cb(artist)
+                            }
 
-            let newData = JSON.stringify(arr)
-            fs.writeFile(PATH_USERS, newData, (err) => {
-                if(err) cb(err)
+                        })
+                    })
+                }
             })
-                             
-        }) 
-                
-    }) 
+        }
+
+
     
-}
-*/
+
+ 
+ 
 
 function removeUser(username, cb){
     getUser(username, (err, user) => {
-        fs.readFile(PATH_USERS, (err, buffer) => {
+        fs.readFile(pathUsers, (err, buffer) => {
             if(err) cb(err)
             const arr = JSON.parse(buffer)
             const users = arr.filter(users => users.username == username)
@@ -141,7 +154,7 @@ function removeUser(username, cb){
                 index++
             })
             let newArray = JSON.stringify(arr)
-            fs.writeFile(PATH_USERS, newArray, (err) => {
+            fs.writeFile(pathUsers, newArray, (err) => {
                 if(err) cb(err)
             })
         })
@@ -152,9 +165,10 @@ function removeUser(username, cb){
     
 
 module.exports = {
+    init,
     getUser,
-    //addArtist,
-    addUser,
-    removeUser,
     getUsers,
+    addUser,
+    addArtist,
+    removeUser,
 }

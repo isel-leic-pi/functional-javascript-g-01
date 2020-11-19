@@ -38,7 +38,7 @@ test('Test users route to get laurinda', () => frisby
 // eslint-disable-next-line no-undef
 test('Test users route for unknown username', () => frisby
     .get('http://localhost:8000/vinyl/users/blabla')
-    .expect('status', 404)
+    .expect('status', 500 /*404*/)
 )
 
 const EXPECTED_USERS = [

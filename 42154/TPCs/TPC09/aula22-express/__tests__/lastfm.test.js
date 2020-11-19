@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
 'use strict'
 
-const lastfm = require('./../lib/repo/lastfm')
 const urllib = require('urllib')
-const fs = require('fs')
+const lastfm = require('./../lib/repo/lastfm')
+const fs = require('fs')    
 
 jest.mock('urllib') // Adds a mock API to all ppublic methods of urllib
 

@@ -1,6 +1,6 @@
 'use strict'
 
-const Router  = require('express').Router
+const Router = require('express').Router
 const { response } = require('express')
 const users = require('./../repo/users')
 const vinyl = require('./../repo/vinyl')
@@ -17,6 +17,8 @@ router.get('/vinyl/users/:username/toptracks/', (req, resp, next) => {
         resp.json(tracks)
     })
 })
+
+
 
 router.get('/vinyl/users/:username', (req, resp, next) => {
     const username = req.params.username
@@ -49,27 +51,29 @@ router.get('/vinyl/users', (req, resp, next) => {
             if(err) return next(err)
             if(!user){
                 const err = new Error('Impossible to add user')
-                err.status = 404
+                err.status = 409
                 return next(err)
             }
-            //resp.json(user)
-            resp.put(user)
+            resp.json(user)
         })
     })
 
-    router.post('/vinyl/users/:username/artists', (req, resp, next) => {
+
+
+    router.post('/vinyl/users/:username/artists/:artist', (req, resp, next) => {
         const username = req.params.username 
+        const artist = req.params.artist
         vinyl.addArtist(username, (err, artist) => {
             if(err) return next(err)
             if(!username){
                 const err = new Error('Invalid user, impossible to add artist')
-                err.status = 404
+                err.status = 409
                 return next(err)
             }
-            //resp.json(artist)
-            resp.post(artist)
+            resp.json(artist)
         })
     })
+
 
     router.delete('/vinyl/users/:username', (req, resp, next) => {
         const username = req.params.username
@@ -77,13 +81,13 @@ router.get('/vinyl/users', (req, resp, next) => {
             if(err) return next(err)
             if(!username){
                 const err = new Error('Invalid username, impossible to remove user')
-                err.status = 404
+                err.status = 409
                 return next(err)
             }
-            //resp.json(user)
-            resp.delete(user)
-
+            resp.json(user)
+    
         })
     })
+   
 
 
